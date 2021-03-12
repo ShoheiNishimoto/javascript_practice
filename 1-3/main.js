@@ -4,7 +4,7 @@ const tasks = [
   '散歩',
 ];
 
-function tasksShow () {
+function showTask () {
   console.log ('========================');
   console.log ('現在持っているのタスク一覧');
   console.log ('========================');
@@ -18,9 +18,9 @@ function addTask (count) {
     const input = prompt ('タスクを入力してください');
     tasks.push (input);
     alert ('タスクを追加しました');
-    tasksShow ();
+    showTask ();
   }
 }
 
-tasksShow ();
-addTask (1);
+showTask ();
+addTask (3);
