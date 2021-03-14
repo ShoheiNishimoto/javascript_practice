@@ -1,36 +1,42 @@
-const tasks = {
-  content: [
-    '机を片付ける',
-    '牛乳を買う',
-    '散歩をする',
-  ],
-  ganre: [
-    '掃除',
-    '買い物',
-    '運動',
-  ]
-}
+const tasks = [
+  {
+    content: '机を片付ける',
+    ganne: '掃除'
+  },
+  {
+    content: '牛乳を買う',
+    ganne: '買い物'
+  },
+  {
+    content: '散歩をする',
+    ganne: '運動'
+  }
+]
 
 
 function showTask () {
   console.log ('========================');
   console.log ('現在持っているのタスク一覧');
   console.log ('========================');
-  for (let i = 0; i < tasks.content.length; i++) {
-    console.log (`${i} : [内容]${tasks.content[i]}、[ジャンル]${tasks.ganre[i]}`);
-  }
+  tasks.forEach ((task, index) => {
+    console.log (`${index} : [内容]${task.content}、[ジャンル]${task.ganne}`);
+  });
 }
 
-function addTask (count) {
-  for (let i = 0; i < count; i++) {
+function addTask () {
+  let rep = 3;
+  while (rep > 0) {
     const newContent = prompt ('タスクを入力してください');
     const newGanre = prompt ('ジャンルを入力してください');
-    tasks.content.push (newContent);
-    tasks.ganre.push (newGanre);
+    const newObj = {};
+    newObj.content = newContent;
+    newObj.ganne = newGanre;
+    tasks.push (newObj);
     alert ('タスクを追加しました');
     showTask ();
+    rep --;
   }
 }
 
 showTask ();
-addTask (3);
+addTask ();
