@@ -2,3 +2,14 @@
   box-sizing: border-box;
 }
 
+.inputArea {
+  display: flex;
+  align-items: center;
+
+  & input {
+    height: 30px;
+    width: 180px;
+    margin-left: 5px;
+  }
+}
+
