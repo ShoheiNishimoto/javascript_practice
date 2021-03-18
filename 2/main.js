@@ -28,8 +28,8 @@ function exportResult (fizz, buzz) {
 
 btn.addEventListener ('click', () => {
   const regex = /^([1-9]\d*|0)$/;
-  let checkFizz = regex.test(fizzNum.value);
-  let checkBuzz = regex.test(buzzNum.value);
+  const checkFizz = regex.test(fizzNum.value);
+  const checkBuzz = regex.test(buzzNum.value);
   
   if (checkFizz && checkBuzz) {
     exportResult (fizzNum.value, buzzNum.value);
