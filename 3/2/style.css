@@ -1,0 +1,12 @@
+.radioContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+th, td {
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+/*# sourceMappingURL=style.css.map */

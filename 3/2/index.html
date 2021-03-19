@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>javascript 課題3-1</title>
+</head>
+<body>
+  <section>
+    <h1>ToDoリスト</h1>
+    <div class="radioContainer">
+      <p>
+        <input type="radio" name="status" id="all" checked="checked">
+        すべて
+      </p>
+      <p>
+        <input type="radio" name="status" id="work">
+        作業中
+      </p>
+      <p>
+        <input type="radio" name="status" id="done">
+        完了
+      </p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>コメント</th>
+          <th>状態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ここにタスクを追加していく -->
+      </tbody>
+    </table>
+
+    <h2>新規タスクの追加</h2>
+
+      <input type="text" name="" id="text">
+      <button id="addBtn">追加</button> 
+
+  </section>
+
+  
+  <script src="js/add.js"></script>
+  <script src="js/show.js"></script>
+  <script src="js/rm.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
