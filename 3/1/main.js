@@ -9,7 +9,7 @@ function addTask () {
   const newTask = text.value;
   if (newTask) {
     tasks.push (newTask);
-    text.value = "";
+    text.value = '';
     console.log ('成功');
   }
 }
