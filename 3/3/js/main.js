@@ -1,103 +1,158 @@
-const addBtn = document.getElementById ('addBtn');
-const text = document.getElementById ('text');
-const tasks = [];
-const tasksArea = document.querySelector ('tbody');
-
-//addTaskで追加されたタスクをDOMに追加する
-function showTask () {
-  while (tasksArea.firstChild) {
-    tasksArea.removeChild (tasksArea.firstChild);
-  }
-  const flagment = document.createDocumentFragment ();
-
-  for (let i = 0; i < tasks.length; i ++) {
-    //tr
-    const tr = document.createElement ('tr');
-    tr.setAttribute ('id', `${i}`);
- 
-    //id
-    const id = document.createElement ('td');
-    id.textContent = `${i}`;
-    tr.appendChild (id);
-
-    //コメント部分
-    const comment = document.createElement ('td');
-    comment.textContent = tasks [i];
-    tr.appendChild (comment);
-
-    //statusボタン
-    const status = document.createElement ('td');
-    const statusBtn = document.createElement ('button');
-    statusBtn.setAttribute ('id', `statusBtn${i}`);
-    statusBtn.textContent = "作業中";
-    status.appendChild (statusBtn);
-    tr.append (status);
-    
-    //削除ボタン
-    const rm = document.createElement ('td');
-    const rmBtn = document.createElement ('button');
-    rmBtn.setAttribute ('id', `rmBtn${i}`);
-    rmBtn.textContent = "削除";
-    rm.appendChild (rmBtn);
-    tr.append (rm);
-    
-    //flagmentにまとめる
-    flagment.appendChild (tr);
-  }
-  //tasksAreaに追加
-  tasksArea.appendChild (flagment);
-}
+const addTaskBtn = document.getElementById ('addTaskBtn');
+const taskTxt = document.getElementById ('taskTxt');
+const taskArea = document.querySelector ('tbody');
+const taskArray = [];
 
 
-//入力されたタスクをtasks配列に追加する
-function addTask () {
-  const newTask = text.value;
-  if (newTask) {
-    tasks.push (newTask);
-    text.value = '';
-  }
-}
-
-//tasksに格納されたtaskの数に応じて削除用のボタンの情報を取得
-
-function rm () {
-  const rmBtn = [];
-  for (let i = 0; i < tasks.length; i ++) {
-    rmBtn.push(document.getElementById (`rmBtn${i}`));
-  }
-  rmBtn.forEach ((e,i) => {
-    e.addEventListener ('click', () => {
-      const tr = document.getElementById (`${i}`);
-      tasks.splice (i, 1);
-      tr.remove ();
-      showTask ();
-      rm ();
-      getStatusBtn ();
-    })
-  })
-}
-
-//statusBtnを取得して状態切り替えのトグルを追加
-function getStatusBtn () {
-  const statusBtns = [];
-   for (let i = 0; i < tasks.length; i ++) {
-    statusBtns.push (document.getElementById (`statusBtn${i}`));
-  }
-  statusBtns.forEach (e => {
-    e.addEventListener ('click', () => {
-      e.textContent = (e.textContent === '作業中') ? '完了' : '作業中';
-    })
-  })
-
-};
 
 
 //追加ボタンを押した時にタスクの追加を行う
-addBtn.addEventListener ('click', () => {
-  addTask ();  
+addTaskBtn.addEventListener ('click', () => {
+  addTask ();
   showTask ();
-  rm ();
-  getStatusBtn ();
+  rmTask ();
+  toggleStatus ();
 });
 
+//入力されたタスクをtasks配列に追加する
+function addTask () {
+  const comment = taskTxt.value;
+  if (comment) {
+    taskArray.push ({
+      comment: comment,
+      status: 'working',
+    })
+    taskTxt.value = '';
+  }
+}
+
+function showTask () {
+  const flagment = document.createDocumentFragment ();
+
+  while (taskArea.firstChild) {
+    taskArea.removeChild (taskArea.firstChild);
+  }
+
+  for (let i = 0; i < taskArray.length; i++) {
+    //---------------------------------
+    const tr = document.createElement ('tr');
+    tr.setAttribute ('id', `${i}`);
+
+    if (taskArray [i].status === 'working') {
+      tr.classList.add ('working');
+    } else {
+      tr.classList.add ('done');
+    }
+
+    
+
+    //id
+    const idTd = document.createElement ('td');
+    idTd.textContent = `${i}`;
+    tr.appendChild (idTd);
+    
+    //コメント部分
+    const commentTd = document.createElement ('td');
+    commentTd.textContent = taskArray [i].comment;
+    tr.appendChild (commentTd);
+    //---------------------------------
+    
+    
+    //---------------------------------
+    //   //statusボタン
+    const statusTd = document.createElement ('td');
+    const statusBtn = document.createElement ('button');
+    statusBtn.setAttribute ('id', `statusBtn${i}`);
+
+    if (taskArray [i].status === 'working') {
+      statusBtn.textContent = '作業中';
+    } else {
+      statusBtn.textContent = '完了';
+    }
+
+    statusTd.appendChild (statusBtn);
+    tr.append (statusTd);
+    //---------------------------------
+    
+    
+    //---------------------------------
+    //   //削除ボタン
+    const rmTd = document.createElement ('td');
+    const rmBtn = document.createElement ('button');
+    rmBtn.setAttribute ('id', `rmBtn${i}`);
+    rmBtn.textContent = "削除";
+    rmTd.appendChild (rmBtn);
+    tr.append (rmTd);
+    //---------------------------------
+    
+    //---------------------------------
+    //   //flagmentにまとめる
+    flagment.appendChild (tr);
+    taskArea.appendChild (flagment);
+    //---------------------------------
+
+  }
+  displayToggle ();
+}
+  
+  //tasksに格納されたtaskの数に応じて削除用のボタンの情報を取得
+function rmTask () {
+  const rmBtn = [];
+  for (let i = 0; i < taskArray.length; i ++) {
+    rmBtn.push (document.getElementById (`rmBtn${i}`));
+  }
+  rmBtn.forEach ((e, i) => {
+    e.addEventListener ('click', () => {
+      const tr = document.getElementById (`${i}`);
+      tr.remove ();
+      taskArray.splice (i, 1);
+
+      showTask ();
+      toggleStatus ()
+      rmTask ();
+    })
+  })
+}
+
+// //statusBtnを取得して状態切り替えのトグルを追加
+function toggleStatus () {
+  const statusBtns = [];
+   for (let i = 0; i < taskArray.length; i ++) {
+    statusBtns.push (document.getElementById (`statusBtn${i}`));
+  }
+  statusBtns.forEach ((e, i) => {
+    e.addEventListener ('click', () => {
+      taskArray [i].status = (taskArray [i].status === 'working') ? 'done' : 'working';
+
+      showTask ();
+      toggleStatus ();
+      rmTask ();
+    })
+  })
+};
+
+function displayToggle () {
+  const radio = document.getElementsByName ('status');
+  if (radio[0].checked) {
+    taskArray.forEach ((e, i) => {
+      document.getElementById (`${i}`).classList.remove ('hidden');
+    })
+  } else if (radio[1].checked) {
+    taskArray.forEach ((e, i) => {
+      if (e.status === 'working') {
+        document.getElementById (`${i}`).classList.remove ('hidden');
+      } else {
+        document.getElementById (`${i}`).classList.add ('hidden');
+      }
+    })
+  } else if (radio[2].checked) {
+    taskArray.forEach ((e, i) => {
+      if (e.status === 'done') {
+        document.getElementById (`${i}`).classList.remove ('hidden');
+      } else {
+        document.getElementById (`${i}`).classList.add ('hidden');
+      }
+    })
+  }
+}
 
