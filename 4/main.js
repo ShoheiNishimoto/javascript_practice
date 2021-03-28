@@ -8,13 +8,10 @@ let quizList;
 let curIndex = 0;
 let correctAnswers = 0;
 
-// btn.addEventListener ('click', getQuizList);//こっちを使う
-
-getQuizList ();//テスト用 後で削除
+btn.addEventListener ('click', getQuizList);
 
 // クイズデータの取得と1問目のクイズのセット
 async function getQuizList () { 
-  console.log ('取得中') //後で削除
   title.textContent = '取得中';
   text.textContent = '少々お待ちください';
   btnArea.removeChild (startBtn);
@@ -28,7 +25,6 @@ async function getQuizList () {
   })
 
   quizList = json.results;
-  console.log (quizList); //後で削除
   quizSet ();
 }
 
@@ -97,7 +93,6 @@ function btnSet () {
     })
   }
 
-  console.log (shuffledChoices); //後で削除
 }
 
 
