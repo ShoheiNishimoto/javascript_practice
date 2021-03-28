@@ -1,0 +1,15 @@
+p.text {
+  padding: 10px 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.hidden {
+  display: none;
+}
+
+#btnArea button {
+  display: block;
+  margin-top: 10px;
+}
+/*# sourceMappingURL=style.css.map */
