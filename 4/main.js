@@ -16,20 +16,19 @@ async function getQuizList () {
   text.textContent = '少々お待ちください';
   btnArea.removeChild (startBtn);
   
-  const json = await fetch (url)
-  .then (response => {
-    return response.json ();
-  }).catch (error => {
-    console.log ('取得失敗 ' + error); 
-    return null;
-  })
-
-  quizList = json.results;
-  quizSet ();
+  try {
+    const response = await fetch (url);
+    const json = await response.json ();
+    quizList = json.results;
+    setQuiz ();
+  } catch (error) {
+    console.log ('取得失敗' + error);
+  }
+  
 }
 
 //クイズをセットする関数
-function quizSet () {
+function setQuiz () {
   //何問目,カテゴリー,難易度をcurIndexをもとに表示
   title.textContent = `問題${curIndex + 1}`;
   const category = document.createElement ('p');
@@ -86,7 +85,7 @@ function btnSet () {
         } else {
           curIndex ++;
         }
-        quizSet ();
+        setQuiz ();
       } else {
         showResult ();
       }
@@ -114,7 +113,7 @@ function showResult () {
   finBtn.addEventListener ('click', () => {
     curIndex = 0;
     correctAnswers = 0;
-    quizSet ();
+    setQuiz ();
   })
 }
 
